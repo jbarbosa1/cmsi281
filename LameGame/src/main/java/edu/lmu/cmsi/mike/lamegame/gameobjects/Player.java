@@ -43,13 +43,13 @@ public class Player {
     }
   }
 
-  public boolean checkCollision(Rock r) {
+  public void checkCollision(Rock r) {
     if (this.getX() == r.getX() && this.getY() == r.getY()) {
       displacement.invert();
     }
   }
 
-  public boolean checkCollision(Tree t) {
+  public void checkCollision(Tree t) {
     if (this.getX() == t.getX() && this.getY() == t.getY()) {
       displacement.invert();
     }

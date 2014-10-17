@@ -11,13 +11,14 @@ public class GameEngine {
 
   private int frame;
   private int size;
-  private int counterP = 0;
-  private int counterA = 0;
-  private int counterS = 0;
-  private int counterX = 0;
-  private int counterZ = 0;
-  private int counterO = 0;
-  private int counterK = 0;
+  private int counterP;
+  private int counterZ;
+  private int counterX;
+  private int counterA;
+  private int counterS;
+  private int counterO;
+  private int counterK;
+  private int[] counter = {counterP, counterZ, counterX, counterA, counterS, counterO, counterK};
   
 
   // Game Objects
@@ -134,13 +135,13 @@ public class GameEngine {
 
     System.out.println("=========================");
 
-    System.out.println("Player has been hit: " + counterP + "times");
-    System.out.println("Monster A has been hit: " + counterA + "times");
-    System.out.println("Monster S has been hit: " + counterS + "times");
-    System.out.println("Monster X has been hit: " + counterX + "times");
-    System.out.println("Monster Z has been hit: " + counterZ + "times");
-    System.out.println("Boss O has been hit: " + counterO + "times");
-    System.out.println("Boss K has been hit: " + counterK + "times");
+    System.out.println("Player has been hit: " + counter[0] + " times");
+    System.out.println("Monster A has been hit: " + counter[1] + " times");
+    System.out.println("Monster S has been hit: " + counter[2] + " times");
+    System.out.println("Monster X has been hit: " + counter[3] + " times");
+    System.out.println("Monster Z has been hit: " + counter[4] + " times");
+    System.out.println("Boss O has been hit: " + counter[5] + " times");
+    System.out.println("Boss K has been hit: " + counter[6] + " times");
   }
 
   private void updateObjects() {
@@ -171,24 +172,12 @@ public class GameEngine {
       Tree t = this.trees[i];
       this.player.checkCollision(t);
     }
-    if(this.player.checkCollision(monsters[0]) == true){
-      counterZ++;
-      counterP++;
-    } else if(this.player.checkCollision(monsters[1]) == true){
-      counterX++;
-      counterP++;
-    }else if(this.player.checkCollision(monsters[2]) == true){
-      counterA++;
-      counterP++;
-    }else if(this.player.checkCollision(monsters[3]) == true){
-      counterS++;
-      counterP++;
-    }else if(this.player.checkCollision(monsters[4]) == true){
-      counterO++;
-      counterP++;
-    }else if(this.player.checkCollision(monsters[5]) == true){
-      counterK++;
-      counterP++;
+    for(int i = 0; i < this.monsters.length; i++){
+      Monster m = this.monsters[i];
+      if(this.player.checkCollision(m) == true){
+        counter[i+1]++;
+        counter[0]++;
+      }
     }
   }
 }

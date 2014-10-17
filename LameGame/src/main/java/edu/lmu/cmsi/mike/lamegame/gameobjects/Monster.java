@@ -34,7 +34,7 @@ public class Monster {
     this.location.setY(this.location.getY() + this.displacement.getYDisplacement());
   }
 
-  public void checkCollision() {
+  public void checkCollision(Wall w) {
     if (this.getX() == w.getX() && this.getY() == w.getY()) {
       displacement.invert();
     }

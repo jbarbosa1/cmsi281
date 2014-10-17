@@ -1,1 +1,9 @@
 edu\lmu\cmsi\mike\lamegame\App.class
+edu\lmu\cmsi\mike\lamegame\core\Displacement.class
+edu\lmu\cmsi\mike\lamegame\gameobjects\Tree.class
+edu\lmu\cmsi\mike\lamegame\gameobjects\Monster.class
+edu\lmu\cmsi\mike\lamegame\gameobjects\Rock.class
+edu\lmu\cmsi\mike\lamegame\gameobjects\Player.class
+edu\lmu\cmsi\mike\lamegame\gameobjects\Wall.class
+edu\lmu\cmsi\mike\lamegame\engine\GameEngine.class
+edu\lmu\cmsi\mike\lamegame\core\Coordinate.class
