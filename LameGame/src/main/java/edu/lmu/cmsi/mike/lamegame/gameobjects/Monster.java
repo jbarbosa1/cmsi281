@@ -40,6 +40,22 @@ public class Monster {
     }
   }
 
+
+  public boolean checkCollision(Rock r){
+    if (this.getX() == r.getX() && this.getY() == r.getY()) {
+      displacement.invert();
+    }
+    return (this.getX() == r.getX() && this.getY() == r.getY());
+  }
+
+
+  public boolean checkCollision(Tree t){
+    if (this.getX() == t.getX() && this.getY() == t.getY()) {
+      displacement.invert();
+    }
+    return (this.getX() == t.getX() && this.getY() == t.getY());
+  }
+
   // You need to know about all this if you want to continue down this path
   //public void checkCollision(Player m);
   //public void checkCollision(Boss b);

@@ -47,7 +47,7 @@ public class GameEngine {
     this.trees[0] = new Tree(19, 16);
     this.trees[1] = new Tree(4, 2);
     this.monsters = new Monster[6];
-    this.monsters[0] = new Monster(4, 3, 1, 1);
+    this.monsters[0] = new Monster(4, 3, 0, 1);
     this.monsters[1] = new Monster(10, 12, 1, 1);
     this.monsters[2] = new Monster(8, 17, 1, 1);
     this.monsters[3] = new Monster(2, 1, 1, 1);
@@ -136,10 +136,10 @@ public class GameEngine {
     System.out.println("=========================");
 
     System.out.println("Player has been hit: " + counter[0] + " times");
-    System.out.println("Monster A has been hit: " + counter[1] + " times");
-    System.out.println("Monster S has been hit: " + counter[2] + " times");
-    System.out.println("Monster X has been hit: " + counter[3] + " times");
-    System.out.println("Monster Z has been hit: " + counter[4] + " times");
+    System.out.println("Monster Z has been hit: " + counter[1] + " times");
+    System.out.println("Monster X has been hit: " + counter[2] + " times");
+    System.out.println("Monster A has been hit: " + counter[3] + " times");
+    System.out.println("Monster S has been hit: " + counter[4] + " times");
     System.out.println("Boss O has been hit: " + counter[5] + " times");
     System.out.println("Boss K has been hit: " + counter[6] + " times");
   }
@@ -150,6 +150,39 @@ public class GameEngine {
     this.player.update();
     for (int i = 0; i < this.monsters.length; i++) {
       this.monsters[i].update();
+    }
+  }
+
+  private void chancesZOrX(int c){
+    int num1 = (int)Math.ceil(Math.random() * 2);
+    int num2 = (int)Math.ceil(Math.random() * 2);
+    if(num1 == 1){
+      counter[0]++;
+    }
+    if(num2 == 1){
+     counter[c + 1]++;
+    }
+  }
+
+  private void chancesAOrS(int c){
+    int num1 = (int)Math.ceil(Math.random() * 5);
+    int num2 = (int)Math.ceil(Math.random() * 2);
+    if( num1 < 4){
+      counter[0]++;
+    }
+    if( num2 == 1){
+      counter[c + 1]++;
+    }
+  }
+
+  private void chancesOOrK(int c){
+    int num1 = (int)Math.ceil(Math.random() * 10);
+    int num2 = (int)Math.ceil(Math.random() * 10);
+    if( num1 < 8){
+      counter[0]++;
+    }
+    if( num2 < 4){
+      counter[c + 1]++;
     }
   }
 
@@ -167,16 +200,45 @@ public class GameEngine {
     for (int i = 0; i < this.rocks.length; i++) {
       Rock r = this.rocks[i];
       this.player.checkCollision(r);
+      if(this.player.checkCollision(r) == true){
+        counter[0]++;
+      }
+    }
+    for (int i = 0; i < this.rocks.length; i++) {
+      Rock r = this.rocks[i];
+      for (int j = 0; j < this.monsters.length; j++) {
+        this.monsters[j].checkCollision(r);
+        if(this.monsters[j].checkCollision(r) == true) {
+          counter[j + 1]++;
+        }
+      }
     }
     for (int i = 0; i < this.trees.length; i++) {
       Tree t = this.trees[i];
       this.player.checkCollision(t);
+      if(this.player.checkCollision(t) == true){
+        counter[0]++;
+      }
+    }
+    for (int i = 0; i < this.trees.length; i++) {
+      Tree t = this.trees[i];
+      for (int j = 0; j < this.monsters.length; j++) {
+        this.monsters[j].checkCollision(t);
+        if(this.monsters[j].checkCollision(t) == true) {
+          counter[j + 1]++;
+        }
+      }
     }
     for(int i = 0; i < this.monsters.length; i++){
       Monster m = this.monsters[i];
       if(this.player.checkCollision(m) == true){
-        counter[i+1]++;
-        counter[0]++;
+        if(i < 2){
+          chancesZOrX(i);
+        }else if((i >= 2) && (i < 4)){
+          chancesAOrS(i);
+        }else{
+          chancesOOrK(i);
+        }
       }
     }
   }

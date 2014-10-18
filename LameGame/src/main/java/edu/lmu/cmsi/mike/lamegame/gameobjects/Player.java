@@ -15,7 +15,7 @@ public class Player {
 
   public Player(int x, int y) {
     this.location = new Coordinate(x, y);
-    this.displacement = new Displacement(1, 1);
+    this.displacement = new Displacement(1, 0);
   }
 
   public int getX() {
@@ -43,17 +43,20 @@ public class Player {
     }
   }
 
-  public void checkCollision(Rock r) {
+  public boolean checkCollision(Rock r){
     if (this.getX() == r.getX() && this.getY() == r.getY()) {
       displacement.invert();
     }
+    return (this.getX() == r.getX() && this.getY() == r.getY());
   }
 
-  public void checkCollision(Tree t) {
+
+  public boolean checkCollision(Tree t){
     if (this.getX() == t.getX() && this.getY() == t.getY()) {
       displacement.invert();
     }
-  }  
+    return (this.getX() == t.getX() && this.getY() == t.getY());
+  } 
 
   public boolean checkCollision(Monster m){
     return (this.getX() == m.getX() && this.getY() == m.getY());
